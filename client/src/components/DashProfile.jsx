@@ -10,15 +10,19 @@ import {
 import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-// import {
-//   updateStart,
-//   updateSuccess,
-//   updateFailure,
-//   deleteUserStart,
-//   deleteUserSuccess,
-//   deleteUserFailure,
-//   signoutSuccess,
-// } from '../redux/user/userSlice';
+import {
+  updateStart,
+  updateSuccess,
+  updateFailure,
+  deleteUserStart,
+  deleteUserFailure,
+  deleteUserSuccess,
+  signoutSuccess,
+  // deleteUserStart,
+  // deleteUserSuccess,
+  // deleteUserFailure,
+  // signoutSuccess,
+} from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
@@ -99,71 +103,71 @@ export default function DashProfile() {
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // setUpdateUserError(null);
-    // setUpdateUserSuccess(null);
-    // if (Object.keys(formData).length === 0) {
-    //   setUpdateUserError('No changes made');
-    //   return;
-    // }
-    // if (imageFileUploading) {
-    //   setUpdateUserError('Please wait for image to upload');
-    //   return;
-    // }
-    // try {
-    //   dispatch(updateStart());
-    //   const res = await fetch(`/api/user/update/${currentUser._id}`, {
-    //     method: 'PUT',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(formData),
-    //   });
-    //   const data = await res.json();
-    //   if (!res.ok) {
-    //     dispatch(updateFailure(data.message));
-    //     setUpdateUserError(data.message);
-    //   } else {
-    //     dispatch(updateSuccess(data));
-    //     setUpdateUserSuccess("User's profile updated successfully");
-    //   }
-    // } catch (error) {
-    //   dispatch(updateFailure(error.message));
-    //   setUpdateUserError(error.message);
-    // }
+    e.preventDefault();
+    setUpdateUserError(null);
+    setUpdateUserSuccess(null);
+    if (Object.keys(formData).length === 0) {
+      setUpdateUserError('No changes made');
+      return;
+    }
+    if (imageFileUploading) {
+      setUpdateUserError('Please wait for image to upload');
+      return;
+    }
+    try {
+      dispatch(updateStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(updateFailure(data.message));
+        setUpdateUserError(data.message);
+      } else {
+        dispatch(updateSuccess(data));
+        setUpdateUserSuccess("User's profile updated successfully");
+      }
+    } catch (error) {
+      dispatch(updateFailure(error.message));
+      setUpdateUserError(error.message);
+    }
   };
   const handleDeleteUser = async () => {
-    // setShowModal(false);
-    // try {
-    //   dispatch(deleteUserStart());
-    //   const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-    //     method: 'DELETE',
-    //   });
-    //   const data = await res.json();
-    //   if (!res.ok) {
-    //     dispatch(deleteUserFailure(data.message));
-    //   } else {
-    //     dispatch(deleteUserSuccess(data));
-    //   }
-    // } catch (error) {
-    //   dispatch(deleteUserFailure(error.message));
-    // }
+    setShowModal(false);
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(deleteUserFailure(data.message));
+      } else {
+        dispatch(deleteUserSuccess(data));
+      }
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
   };
 
   const handleSignout = async () => {
-    // try {
-    //   const res = await fetch('/api/user/signout', {
-    //     method: 'POST',
-    //   });
-    //   const data = await res.json();
-    //   if (!res.ok) {
-    //     console.log(data.message);
-    //   } else {
-    //     dispatch(signoutSuccess());
-    //   }
-    // } catch (error) {
-    //   console.log(error.message);
-    // }
+    try {
+      const res = await fetch('/api/user/signout', {
+        method: 'POST',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   return (
     <div className='max-w-lg mx-auto p-3 w-full'>
